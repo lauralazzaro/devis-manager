@@ -3,7 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\QuoteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Enum\QuoteStatus;
 
 #[ORM\Entity(repositoryClass: QuoteRepository::class)]
 class Quote
@@ -19,12 +22,23 @@ class Quote
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $status = null;
+    #[ORM\Column(type: 'string', enumType: QuoteStatus::class)]
+    private QuoteStatus $status = QuoteStatus::Draft;
 
     #[ORM\ManyToOne(inversedBy: 'quotes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
+
+    /**
+     * @var Collection<int, QuoteLine>
+     */
+    #[ORM\OneToMany(targetEntity: QuoteLine::class, mappedBy: 'quote', orphanRemoval: true)]
+    private Collection $quoteLines;
+
+    public function __construct()
+    {
+        $this->quoteLines = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +89,36 @@ class Quote
     public function setClient(?Client $client): static
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuoteLine>
+     */
+    public function getQuoteLines(): Collection
+    {
+        return $this->quoteLines;
+    }
+
+    public function addQuoteLine(QuoteLine $quoteLine): static
+    {
+        if (!$this->quoteLines->contains($quoteLine)) {
+            $this->quoteLines->add($quoteLine);
+            $quoteLine->setQuote($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuoteLine(QuoteLine $quoteLine): static
+    {
+        if ($this->quoteLines->removeElement($quoteLine)) {
+            // set the owning side to null (unless already changed)
+            if ($quoteLine->getQuote() === $this) {
+                $quoteLine->setQuote(null);
+            }
+        }
 
         return $this;
     }
