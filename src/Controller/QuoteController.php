@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\PdfService;
 
 #[Route('/quote')]
 final class QuoteController extends AbstractController
@@ -47,6 +48,17 @@ final class QuoteController extends AbstractController
     {
         return $this->render('quote/show.html.twig', [
             'quote' => $quote,
+        ]);
+    }
+
+    #[Route('/{id}/pdf', name: 'app_quote_pdf', methods: ['GET'])]
+    public function pdf(Quote $quote, PdfService $pdfService): Response
+    {
+        $pdf = $pdfService->generateQuotePdf($quote);
+
+        return new Response($pdf, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="quote_' . $quote->getQuoteNumber() . '.pdf"',
         ]);
     }
 
