@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quote{% endblock %}
+
+{% block body %}
+    <h1>Quote</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quote.id }}</td>
+            </tr>
+            <tr>
+                <th>QuoteNumber</th>
+                <td>{{ quote.quoteNumber }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ quote.createdAt ? quote.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ quote.status.value }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_quote_index') }}">back to list</a>
+
+    <a href="{{ path('app_quote_edit', {'id': quote.id}) }}">edit</a>
+
+    {{ include('quote/_delete_form.html.twig') }}
+{% endblock %}

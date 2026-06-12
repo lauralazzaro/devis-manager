@@ -69,12 +69,12 @@ class Quote
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): QuoteStatus
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(QuoteStatus $status): static
     {
         $this->status = $status;
 
