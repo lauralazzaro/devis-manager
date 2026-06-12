@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Dashboard</h1>
+
+    <div>
+        <div>
+            <h2>Clients</h2>
+            <p>{{ totalClients }}</p>
+        </div>
+
+        <div>
+            <h2>Quotes</h2>
+            <p>{{ totalQuotes }}</p>
+        </div>
+
+        <div>
+            <h2>Accepted Revenue</h2>
+            <p>{{ totalRevenue }} €</p>
+        </div>
+    </div>
+
+    <h2>Quotes by Status</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for status, count in quotesByStatus %}
+            <tr>
+                <td>{{ status }}</td>
+                <td>{{ count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Recent Quotes</h2>
+    <a href="{{ path('app_quote_new') }}">Create new quote</a>
+    <a href="{{ path('app_client_index') }}">Manage clients</a>
+{% endblock %}
