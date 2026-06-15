@@ -3,36 +3,38 @@
 {% block title %}Client{% endblock %}
 
 {% block body %}
-    <h1>Client</h1>
+    <div class="max-w-xl">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Client Details</h1>
+            <a href="{{ path('app_client_index') }}" class="text-sm text-gray-500 hover:text-gray-900 transition">Back to list</a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ client.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ client.name }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ client.email }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ client.address }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ client.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 space-y-4">
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Name</p>
+                <p class="text-gray-900 font-medium mt-1">{{ client.name }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Email</p>
+                <p class="text-gray-600 mt-1">{{ client.email }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Address</p>
+                <p class="text-gray-600 mt-1">{{ client.address ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Phone</p>
+                <p class="text-gray-600 mt-1">{{ client.phone ?? '-' }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Created At</p>
+                <p class="text-gray-600 mt-1">{{ client.createdAt|date('d/m/Y') }}</p>
+            </div>
+        </div>
 
-    <a href="{{ path('app_client_index') }}">back to list</a>
-
-    <a href="{{ path('app_client_edit', {'id': client.id}) }}">edit</a>
-
-    {{ include('client/_delete_form.html.twig') }}
+        <div class="flex gap-3 mt-6">
+            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="bg-gray-900 text-white px-4 py-2 rounded text-sm hover:bg-gray-700 transition">Edit</a>
+            {{ include('client/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
