@@ -3,34 +3,58 @@
 {% block title %}Quote{% endblock %}
 
 {% block body %}
-    <h1>Quote</h1>
+    <div class="max-w-2xl">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Quote {{ quote.quoteNumber }}</h1>
+            <a href="{{ path('app_quote_index') }}" class="text-sm text-gray-500 hover:text-gray-900 transition">Back to list</a>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ quote.id }}</td>
-            </tr>
-            <tr>
-                <th>QuoteNumber</th>
-                <td>{{ quote.quoteNumber }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ quote.createdAt ? quote.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ quote.status.value }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="bg-white rounded-lg border border-gray-200 p-6 space-y-4 mb-6">
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Client</p>
+                <p class="text-gray-900 font-medium mt-1">{{ quote.client.name }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Date</p>
+                <p class="text-gray-600 mt-1">{{ quote.createdAt|date('d/m/Y') }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">Status</p>
+                <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600 capitalize mt-1 inline-block">{{ quote.status.value }}</span>
+            </div>
+        </div>
 
-    <a href="{{ path('app_quote_index') }}">back to list</a>
+        <div class="bg-white rounded-lg border border-gray-200 overflow-hidden mb-6">
+            <table class="w-full text-left">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Description</th>
+                        <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Qty</th>
+                        <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Unit Price</th>
+                        <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for line in quote.quoteLines %}
+                    <tr class="border-t border-gray-100">
+                        <td class="px-6 py-4 text-sm text-gray-700">{{ line.description }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">{{ line.quantity }}</td>
+                        <td class="px-6 py-4 text-sm text-gray-500">{{ line.unitPrice }} EUR</td>
+                        <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ line.quantity * line.unitPrice }} EUR</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">No lines added</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_quote_edit', {'id': quote.id}) }}">edit</a>
-
-    <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}">Download PDF</a>
-
-    {{ include('quote/_delete_form.html.twig') }}
+        <div class="flex gap-3">
+            <a href="{{ path('app_quote_edit', {'id': quote.id}) }}" class="bg-gray-900 text-white px-4 py-2 rounded text-sm hover:bg-gray-700 transition">Edit</a>
+            <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}" class="border border-gray-300 text-gray-600 px-4 py-2 rounded text-sm hover:bg-gray-50 transition">Download PDF</a>
+            {{ include('quote/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}
