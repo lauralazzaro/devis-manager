@@ -3,30 +3,30 @@
 {% block title %}Clients{% endblock %}
 
 {% block body %}
-    <div class="flex justify-between items-center mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Clients</h1>
-        <a href="{{ path('app_client_new') }}" class="bg-gray-900 text-white px-4 py-2 rounded text-sm hover:bg-gray-700 transition">New Client</a>
+    <div class="page-header">
+        <h1 class="page-title">Clients</h1>
+        <a href="{{ path('app_client_new') }}" class="btn-primary">New Client</a>
     </div>
 
-    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
+    <div class="table-wrapper">
         <table class="w-full text-left">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Name</th>
-                    <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Email</th>
-                    <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Phone</th>
-                    <th class="px-6 py-3 text-xs text-gray-400 uppercase tracking-widest">Actions</th>
+                    <th class="table-header">Name</th>
+                    <th class="table-header">Email</th>
+                    <th class="table-header">Phone</th>
+                    <th class="table-header">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for client in clients %}
                 <tr class="border-t border-gray-100 hover:bg-gray-50">
-                    <td class="px-6 py-4 font-medium text-gray-900">{{ client.name }}</td>
-                    <td class="px-6 py-4 text-gray-500 text-sm">{{ client.email }}</td>
-                    <td class="px-6 py-4 text-gray-500 text-sm">{{ client.phone }}</td>
-                    <td class="px-6 py-4 flex gap-3">
-                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="text-sm text-gray-500 hover:text-gray-900 transition">View</a>
-                        <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="text-sm text-gray-500 hover:text-gray-900 transition">Edit</a>
+                    <td class="table-cell-primary">{{ client.name }}</td>
+                    <td class="table-cell">{{ client.email }}</td>
+                    <td class="table-cell">{{ client.phone }}</td>
+                    <td class="table-cell flex gap-3">
+                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="link">View</a>
+                        <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="link">Edit</a>
                     </td>
                 </tr>
                 {% else %}
