@@ -2,7 +2,6 @@
 
 namespace App\Tests\Functional;
 
-use App\Entity\Client;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -22,7 +21,7 @@ class ClientTest extends WebTestCase
     public function testClientIndexIsAccessible(): void
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/client');
+        $client->request('GET', '/en/client');
 
         $this->assertResponseIsSuccessful();
     }
@@ -30,7 +29,7 @@ class ClientTest extends WebTestCase
     public function testClientNewPageIsAccessible(): void
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/client/new');
+        $client->request('GET', '/en/client/new');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
@@ -39,7 +38,7 @@ class ClientTest extends WebTestCase
     public function testCreateClient(): void
     {
         $client = $this->createAuthenticatedClient();
-        $client->request('GET', '/client/new');
+        $client->request('GET', '/en/client/new');
 
         $client->submitForm('Save', [
             'client[name]' => 'Test Client',

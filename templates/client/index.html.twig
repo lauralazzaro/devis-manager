@@ -5,7 +5,7 @@
 {% block body %}
     <div class="page-header">
         <h1 class="page-title">{{ 'client.title'|trans }}</h1>
-        <a href="{{ path('app_client_new') }}" class="btn-primary">{{ 'client.new'|trans }}</a>
+        <a href="{{ path('app_client_new', {'_locale': app.request.locale}) }}" class="btn-primary">{{ 'client.new'|trans }}</a>
     </div>
 
     <div class="table-wrapper">
@@ -25,8 +25,8 @@
                     <td class="table-cell">{{ client.email }}</td>
                     <td class="table-cell">{{ client.phone }}</td>
                     <td class="table-cell flex gap-3">
-                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="link">{{ 'common.view'|trans }}</a>
-                        <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="link">{{ 'common.edit'|trans }}</a>
+                        <a href="{{ path('app_client_show', {'id': client.id, '_locale': app.request.locale}) }}" class="link">{{ 'common.view'|trans }}</a>
+                        <a href="{{ path('app_client_edit', {'id': client.id, '_locale': app.request.locale}) }}" class="link">{{ 'common.edit'|trans }}</a>
                     </td>
                 </tr>
                 {% else %}

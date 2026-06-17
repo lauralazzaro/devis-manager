@@ -17,9 +17,9 @@
                 <div class="flex items-center gap-8">
                     <span class="font-semibold text-gray-900 tracking-tight">Devis Manager</span>
                     <div class="flex gap-6">
-                        <a href="{{ path('app_dashboard') }}" class="link">{{ 'nav.dashboard'|trans }}</a>
-                        <a href="{{ path('app_client_index') }}" class="link">{{ 'nav.clients'|trans }}</a>
-                        <a href="{{ path('app_quote_index') }}" class="link">{{ 'nav.quotes'|trans }}</a>
+                        <a href="{{ path('app_dashboard', {'_locale': app.request.locale}) }}" class="link">{{ 'nav.dashboard'|trans }}</a>
+                        <a href="{{ path('app_client_index', {'_locale': app.request.locale}) }}" class="link">{{ 'nav.clients'|trans }}</a>
+                        <a href="{{ path('app_quote_index', {'_locale': app.request.locale}) }}" class="link">{{ 'nav.quotes'|trans }}</a>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
@@ -32,13 +32,13 @@
 
                     {# Language switcher #}
                     <div class="flex gap-2 ml-4">
-    <a href="{{ path('app_locale_switch', {'locale': 'en'}) }}" 
-       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'en' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">EN</a>
-    <a href="{{ path('app_locale_switch', {'locale': 'fr'}) }}" 
-       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'fr' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">FR</a>
-    <a href="{{ path('app_locale_switch', {'locale': 'it'}) }}" 
-       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'it' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">IT</a>
-</div>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'en'})) }}" 
+                        class="text-xs px-2 py-1 rounded {{ app.request.locale == 'en' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">EN</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'fr'})) }}" 
+                        class="text-xs px-2 py-1 rounded {{ app.request.locale == 'fr' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">FR</a>
+                        <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_locale': 'it'})) }}" 
+                        class="text-xs px-2 py-1 rounded {{ app.request.locale == 'it' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">IT</a>
+                    </div>
                 </div>
             </div>
         </nav>

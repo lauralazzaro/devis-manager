@@ -5,7 +5,7 @@
 {% block body %}
     <div class="page-header">
         <h1 class="page-title">{{ 'quote.title'|trans }}</h1>
-        <a href="{{ path('app_quote_new') }}" class="btn-primary">{{ 'quote.new'|trans }}</a>
+        <a href="{{ path('app_quote_new', {'_locale': app.request.locale}) }}" class="btn-primary">{{ 'quote.new'|trans }}</a>
     </div>
 
     <div class="table-wrapper">
@@ -29,9 +29,9 @@
                         <span class="badge">{{ ('status.' ~ quote.status.value)|trans }}</span>
                     </td>
                     <td class="table-cell flex gap-3">
-                        <a href="{{ path('app_quote_show', {'id': quote.id}) }}" class="link">{{ 'common.view'|trans }}</a>
-                        <a href="{{ path('app_quote_edit', {'id': quote.id}) }}" class="link">{{ 'common.edit'|trans }}</a>
-                        <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}" class="link">PDF</a>
+                        <a href="{{ path('app_quote_show', {'id': quote.id, '_locale': app.request.locale}) }}" class="link">{{ 'common.view'|trans }}</a>
+                        <a href="{{ path('app_quote_edit', {'id': quote.id, '_locale': app.request.locale}) }}" class="link">{{ 'common.edit'|trans }}</a>
+                        <a href="{{ path('app_quote_pdf', {'id': quote.id, '_locale': app.request.locale}) }}" class="link">PDF</a>
                     </td>
                 </tr>
                 {% else %}
