@@ -6,7 +6,7 @@
     <div class="max-w-2xl">
         <div class="page-header">
             <h1 class="page-title">{{ 'quote.show'|trans }} {{ quote.quoteNumber }}</h1>
-            <a href="{{ path('app_quote_index') }}" class="link">{{ 'common.back'|trans }}</a>
+            <a href="{{ path('app_quote_index', {'_locale': app.request.locale}) }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card space-y-4 mb-6">
@@ -52,8 +52,8 @@
         </div>
 
         <div class="flex gap-3">
-            <a href="{{ path('app_quote_edit', {'id': quote.id}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
-            <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}" class="btn-secondary">{{ 'quote.download_pdf'|trans }}</a>
+            <a href="{{ path('app_quote_edit', {'id': quote.id, '_locale': app.request.locale}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
+            <a href="{{ path('app_quote_pdf', {'id': quote.id, '_locale': app.request.locale}) }}" class="btn-secondary">{{ 'quote.download_pdf'|trans }}</a>
             {{ include('quote/_delete_form.html.twig') }}
         </div>
     </div>

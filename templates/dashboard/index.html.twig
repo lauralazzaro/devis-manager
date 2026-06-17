@@ -43,7 +43,7 @@
     </div>
 
     <div class="flex gap-3">
-        <a href="{{ path('app_quote_new') }}" class="btn-primary">{{ 'dashboard.new_quote'|trans }}</a>
-        <a href="{{ path('app_client_index') }}" class="btn-secondary">{{ 'dashboard.manage_clients'|trans }}</a>
+        <a href="{{ path('app_quote_new', {'_locale': app.request.locale}) }}" class="btn-primary">{{ 'dashboard.new_quote'|trans }}</a>
+        <a href="{{ path('app_client_index', {'_locale': app.request.locale}) }}" class="btn-secondary">{{ 'dashboard.manage_clients'|trans }}</a>
     </div>
 {% endblock %}

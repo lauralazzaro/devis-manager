@@ -6,7 +6,7 @@
     <div class="max-w-xl">
         <div class="page-header">
             <h1 class="page-title">{{ 'client.show'|trans }}</h1>
-            <a href="{{ path('app_client_index') }}" class="link">{{ 'common.back'|trans }}</a>
+            <a href="{{ path('app_client_index', {'_locale': app.request.locale}) }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card space-y-4 mb-6">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="flex gap-3">
-            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
+            <a href="{{ path('app_client_edit', {'id': client.id, '_locale': app.request.locale}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
             {{ include('client/_delete_form.html.twig') }}
         </div>
     </div>

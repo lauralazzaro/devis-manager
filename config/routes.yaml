@@ -1,4 +1,9 @@
 # yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
 
 controllers:
-    resource: routing.controllers     
+    resource: routing.controllers
+    prefix: /{_locale}
+    requirements:
+        _locale: en|fr|it
+    defaults:
+        _locale: en

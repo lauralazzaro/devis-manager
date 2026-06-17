@@ -9,7 +9,7 @@ class SecurityTest extends WebTestCase
     public function testLoginPageIsAccessible(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/login');
+        $client->request('GET', '/en/login');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');
@@ -18,15 +18,15 @@ class SecurityTest extends WebTestCase
     public function testDashboardRequiresLogin(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/');
+        $client->request('GET', '/en');
 
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects('/en/login');
     }
 
     public function testRegisterPageIsAccessible(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/register');
+        $client->request('GET', '/en/register');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorExists('form');

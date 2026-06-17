@@ -30,7 +30,7 @@
         </div>
 
         <p class="text-center text-sm text-gray-500 mt-4">
-            {{ 'auth.no_account'|trans }} <a href="{{ path('app_register') }}" class="text-gray-900 hover:underline">{{ 'auth.register'|trans }}</a>
+            {{ 'auth.no_account'|trans }} <a href="{{ path('app_register', {'_locale': app.request.locale}) }}" class="text-gray-900 hover:underline">{{ 'auth.register'|trans }}</a>
         </p>
     </div>
 {% endblock %}

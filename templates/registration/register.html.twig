@@ -23,7 +23,7 @@
         </div>
 
         <p class="text-center text-sm text-gray-500 mt-4">
-            {{ 'auth.already_account'|trans }} <a href="{{ path('app_login') }}" class="text-gray-900 hover:underline">{{ 'auth.sign_in'|trans }}</a>
+            {{ 'auth.already_account'|trans }} <a href="{{ path('app_login', {'_locale': app.request.locale}) }}" class="text-gray-900 hover:underline">{{ 'auth.sign_in'|trans }}</a>
         </p>
     </div>
 {% endblock %}
