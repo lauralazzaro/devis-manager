@@ -12,9 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\PdfService;
 
+/**
+ * Controller for managing quotes (devis).
+ * Handles listing, creating, viewing, editing, deleting, and PDF export of quotes.
+ */
 #[Route('/quote')]
 final class QuoteController extends AbstractController
 {
+    /** Displays the list of all quotes */
     #[Route(name: 'app_quote_index', methods: ['GET'])]
     public function index(QuoteRepository $quoteRepository): Response
     {
@@ -23,6 +28,7 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    /** Displays and processes the form to create a new quote */
     #[Route('/new', name: 'app_quote_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,6 +49,7 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    /** Displays the details of a single quote including its line items */
     #[Route('/{id}', name: 'app_quote_show', methods: ['GET'])]
     public function show(Quote $quote): Response
     {
@@ -51,6 +58,11 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    /**
+     * Generates and streams a PDF version of the quote.
+     * Uses PdfService to build the PDF from quote data.
+     * Returns the file as a downloadable attachment.
+     */
     #[Route('/{id}/pdf', name: 'app_quote_pdf', methods: ['GET'])]
     public function pdf(Quote $quote, PdfService $pdfService): Response
     {
@@ -62,6 +74,7 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    /** Displays and processes the form to edit an existing quote */
     #[Route('/{id}/edit', name: 'app_quote_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
     {
@@ -80,6 +93,10 @@ final class QuoteController extends AbstractController
         ]);
     }
 
+    /**
+     * Deletes a quote after validating the CSRF token.
+     * Only accessible via POST to prevent accidental deletion.
+     */
     #[Route('/{id}', name: 'app_quote_delete', methods: ['POST'])]
     public function delete(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
     {

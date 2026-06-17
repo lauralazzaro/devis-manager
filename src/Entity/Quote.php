@@ -8,6 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\QuoteStatus;
 
+/**
+ * Represents a quote (devis) in the system.
+ * A quote belongs to a client and contains multiple lines (QuoteLine).
+ * Its status is managed via the QuoteStatus enum.
+ */
 #[ORM\Entity(repositoryClass: QuoteRepository::class)]
 class Quote
 {
@@ -16,20 +21,29 @@ class Quote
     #[ORM\Column]
     private ?int $id = null;
 
+    /** Unique quote reference number (e.g. "DEV-2024-001") */
     #[ORM\Column(length: 50)]
     private ?string $quoteNumber = null;
 
+    /** Date the quote was created */
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * Current status of the quote.
+     * Defaults to Draft when a new quote is created.
+     */
     #[ORM\Column(type: 'string', enumType: QuoteStatus::class)]
     private QuoteStatus $status = QuoteStatus::Draft;
 
+    /** Client this quote belongs to */
     #[ORM\ManyToOne(inversedBy: 'quotes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Client $client = null;
 
     /**
+     * Line items of the quote.
+     * Orphan removal ensures lines are deleted when removed from the collection.
      * @var Collection<int, QuoteLine>
      */
     #[ORM\OneToMany(targetEntity: QuoteLine::class, mappedBy: 'quote', orphanRemoval: true)]
@@ -114,7 +128,7 @@ class Quote
     public function removeQuoteLine(QuoteLine $quoteLine): static
     {
         if ($this->quoteLines->removeElement($quoteLine)) {
-            // set the owning side to null (unless already changed)
+            // Reset the owning side to null if it still points to this quote
             if ($quoteLine->getQuote() === $this) {
                 $quoteLine->setQuote(null);
             }

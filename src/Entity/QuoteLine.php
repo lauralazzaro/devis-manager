@@ -5,6 +5,11 @@ namespace App\Entity;
 use App\Repository\QuoteLineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Represents a single line item in a quote.
+ * Each line has a description, quantity, and unit price.
+ * The total for a line is calculated as quantity * unitPrice.
+ */
 #[ORM\Entity(repositoryClass: QuoteLineRepository::class)]
 class QuoteLine
 {
@@ -13,15 +18,19 @@ class QuoteLine
     #[ORM\Column]
     private ?int $id = null;
 
+    /** Description of the service or product */
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
+    /** Number of units (supports decimals, e.g. 2.5 hours) */
     #[ORM\Column]
     private ?float $quantity = null;
 
+    /** Price per unit in euros */
     #[ORM\Column]
     private ?float $unitPrice = null;
 
+    /** The quote this line belongs to */
     #[ORM\ManyToOne(inversedBy: 'quoteLines')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Quote $quote = null;
@@ -77,5 +86,18 @@ class QuoteLine
         $this->quote = $quote;
 
         return $this;
+    }
+
+    /**
+     * Calculates the total price for this line.
+     * Returns null if quantity or unitPrice is not set.
+     */
+    public function getTotal(): ?float
+    {
+        if ($this->quantity === null || $this->unitPrice === null) {
+            return null;
+        }
+
+        return $this->quantity * $this->unitPrice;
     }
 }
