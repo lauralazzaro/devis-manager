@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Quote{% endblock %}
+{% block title %}{{ 'quote.new'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-xl">
         <div class="page-header">
-            <h1 class="page-title">New Quote</h1>
-            <a href="{{ path('app_quote_index') }}" class="link">Back to list</a>
+            <h1 class="page-title">{{ 'quote.new'|trans }}</h1>
+            <a href="{{ path('app_quote_index') }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card">

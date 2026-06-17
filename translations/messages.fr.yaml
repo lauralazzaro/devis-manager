@@ -1,0 +1,69 @@
+# Navigation
+nav.dashboard: Tableau de bord
+nav.clients: Clients
+nav.quotes: Devis
+nav.logout: Déconnexion
+nav.login: Connexion
+
+# Common
+common.save: Enregistrer
+common.update: Mettre à jour
+common.delete: Supprimer
+common.edit: Modifier
+common.view: Voir
+common.back: Retour à la liste
+common.new: Nouveau
+common.actions: Actions
+common.no_results: Aucun résultat trouvé
+
+# Client
+client.title: Clients
+client.new: Nouveau client
+client.edit: Modifier le client
+client.show: Détails du client
+client.name: Nom
+client.email: Email
+client.phone: Téléphone
+client.address: Adresse
+client.created_at: Créé le
+
+# Quote
+quote.title: Devis
+quote.new: Nouveau devis
+quote.edit: Modifier le devis
+quote.show: Détails du devis
+quote.number: Numéro
+quote.date: Date
+quote.status: Statut
+quote.client: Client
+quote.download_pdf: Télécharger le PDF
+quote.no_lines: Aucune ligne ajoutée
+
+# Quote lines
+quote_line.description: Description
+quote_line.quantity: Quantité
+quote_line.unit_price: Prix unitaire
+quote_line.total: Total
+
+# Dashboard
+dashboard.title: Tableau de bord
+dashboard.clients: Clients
+dashboard.quotes: Devis
+dashboard.accepted_revenue: Chiffre d'affaires accepté
+dashboard.quotes_by_status: Devis par statut
+dashboard.new_quote: Nouveau devis
+dashboard.manage_clients: Gérer les clients
+
+# Auth
+auth.sign_in: Se connecter
+auth.register: Créer un compte
+auth.email: Email
+auth.password: Mot de passe
+auth.no_account: Pas de compte ?
+auth.already_account: Vous avez déjà un compte ?
+
+# Status
+status.draft: Brouillon
+status.sent: Envoyé
+status.accepted: Accepté
+status.refused: Refusé

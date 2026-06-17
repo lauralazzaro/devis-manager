@@ -1,0 +1,69 @@
+# Navigation
+nav.dashboard: Dashboard
+nav.clients: Clients
+nav.quotes: Quotes
+nav.logout: Logout
+nav.login: Login
+
+# Common
+common.save: Save
+common.update: Update
+common.delete: Delete
+common.edit: Edit
+common.view: View
+common.back: Back to list
+common.new: New
+common.actions: Actions
+common.no_results: No results found
+
+# Client
+client.title: Clients
+client.new: New Client
+client.edit: Edit Client
+client.show: Client Details
+client.name: Name
+client.email: Email
+client.phone: Phone
+client.address: Address
+client.created_at: Created At
+
+# Quote
+quote.title: Quotes
+quote.new: New Quote
+quote.edit: Edit Quote
+quote.show: Quote Details
+quote.number: Number
+quote.date: Date
+quote.status: Status
+quote.client: Client
+quote.download_pdf: Download PDF
+quote.no_lines: No lines added
+
+# Quote lines
+quote_line.description: Description
+quote_line.quantity: Quantity
+quote_line.unit_price: Unit Price
+quote_line.total: Total
+
+# Dashboard
+dashboard.title: Dashboard
+dashboard.clients: Clients
+dashboard.quotes: Quotes
+dashboard.accepted_revenue: Accepted Revenue
+dashboard.quotes_by_status: Quotes by Status
+dashboard.new_quote: New Quote
+dashboard.manage_clients: Manage Clients
+
+# Auth
+auth.sign_in: Sign in
+auth.register: Create account
+auth.email: Email
+auth.password: Password
+auth.no_account: No account?
+auth.already_account: Already have an account?
+
+# Status
+status.draft: Draft
+status.sent: Sent
+status.accepted: Accepted
+status.refused: Refused

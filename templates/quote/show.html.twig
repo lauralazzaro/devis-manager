@@ -1,26 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Quote{% endblock %}
+{% block title %}{{ 'quote.show'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-2xl">
         <div class="page-header">
-            <h1 class="page-title">Quote {{ quote.quoteNumber }}</h1>
-            <a href="{{ path('app_quote_index') }}" class="link">Back to list</a>
+            <h1 class="page-title">{{ 'quote.show'|trans }} {{ quote.quoteNumber }}</h1>
+            <a href="{{ path('app_quote_index') }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card space-y-4 mb-6">
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Client</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'quote.client'|trans }}</p>
                 <p class="text-gray-900 font-medium mt-1">{{ quote.client.name }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Date</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'quote.date'|trans }}</p>
                 <p class="text-gray-600 mt-1">{{ quote.createdAt|date('d/m/Y') }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Status</p>
-                <span class="badge mt-1 inline-block">{{ quote.status.value }}</span>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'quote.status'|trans }}</p>
+                <span class="badge mt-1 inline-block">{{ ('status.' ~ quote.status.value)|trans }}</span>
             </div>
         </div>
 
@@ -28,10 +28,10 @@
             <table class="w-full text-left">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="table-header">Description</th>
-                        <th class="table-header">Qty</th>
-                        <th class="table-header">Unit Price</th>
-                        <th class="table-header">Total</th>
+                        <th class="table-header">{{ 'quote_line.description'|trans }}</th>
+                        <th class="table-header">{{ 'quote_line.quantity'|trans }}</th>
+                        <th class="table-header">{{ 'quote_line.unit_price'|trans }}</th>
+                        <th class="table-header">{{ 'quote_line.total'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">No lines added</td>
+                        <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">{{ 'quote.no_lines'|trans }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -52,8 +52,8 @@
         </div>
 
         <div class="flex gap-3">
-            <a href="{{ path('app_quote_edit', {'id': quote.id}) }}" class="btn-primary">Edit</a>
-            <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}" class="btn-secondary">Download PDF</a>
+            <a href="{{ path('app_quote_edit', {'id': quote.id}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
+            <a href="{{ path('app_quote_pdf', {'id': quote.id}) }}" class="btn-secondary">{{ 'quote.download_pdf'|trans }}</a>
             {{ include('quote/_delete_form.html.twig') }}
         </div>
     </div>

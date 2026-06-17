@@ -1,39 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Client{% endblock %}
+{% block title %}{{ 'client.show'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-xl">
         <div class="page-header">
-            <h1 class="page-title">Client Details</h1>
-            <a href="{{ path('app_client_index') }}" class="link">Back to list</a>
+            <h1 class="page-title">{{ 'client.show'|trans }}</h1>
+            <a href="{{ path('app_client_index') }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card space-y-4 mb-6">
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Name</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'client.name'|trans }}</p>
                 <p class="text-gray-900 font-medium mt-1">{{ client.name }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Email</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'client.email'|trans }}</p>
                 <p class="text-gray-600 mt-1">{{ client.email }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Address</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'client.address'|trans }}</p>
                 <p class="text-gray-600 mt-1">{{ client.address ?? '-' }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Phone</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'client.phone'|trans }}</p>
                 <p class="text-gray-600 mt-1">{{ client.phone ?? '-' }}</p>
             </div>
             <div>
-                <p class="text-xs text-gray-400 uppercase tracking-widest">Created At</p>
+                <p class="text-xs text-gray-400 uppercase tracking-widest">{{ 'client.created_at'|trans }}</p>
                 <p class="text-gray-600 mt-1">{{ client.createdAt|date('d/m/Y') }}</p>
             </div>
         </div>
 
         <div class="flex gap-3">
-            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="btn-primary">Edit</a>
+            <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="btn-primary">{{ 'common.edit'|trans }}</a>
             {{ include('client/_delete_form.html.twig') }}
         </div>
     </div>

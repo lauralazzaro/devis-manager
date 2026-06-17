@@ -1,0 +1,69 @@
+# Navigation
+nav.dashboard: Dashboard
+nav.clients: Clienti
+nav.quotes: Preventivi
+nav.logout: Esci
+nav.login: Accedi
+
+# Common
+common.save: Salva
+common.update: Aggiorna
+common.delete: Elimina
+common.edit: Modifica
+common.view: Visualizza
+common.back: Torna alla lista
+common.new: Nuovo
+common.actions: Azioni
+common.no_results: Nessun risultato trovato
+
+# Client
+client.title: Clienti
+client.new: Nuovo cliente
+client.edit: Modifica cliente
+client.show: Dettagli cliente
+client.name: Nome
+client.email: Email
+client.phone: Telefono
+client.address: Indirizzo
+client.created_at: Creato il
+
+# Quote
+quote.title: Preventivi
+quote.new: Nuovo preventivo
+quote.edit: Modifica preventivo
+quote.show: Dettagli preventivo
+quote.number: Numero
+quote.date: Data
+quote.status: Stato
+quote.client: Cliente
+quote.download_pdf: Scarica PDF
+quote.no_lines: Nessuna riga aggiunta
+
+# Quote lines
+quote_line.description: Descrizione
+quote_line.quantity: Quantità
+quote_line.unit_price: Prezzo unitario
+quote_line.total: Totale
+
+# Dashboard
+dashboard.title: Dashboard
+dashboard.clients: Clienti
+dashboard.quotes: Preventivi
+dashboard.accepted_revenue: Fatturato accettato
+dashboard.quotes_by_status: Preventivi per stato
+dashboard.new_quote: Nuovo preventivo
+dashboard.manage_clients: Gestisci clienti
+
+# Auth
+auth.sign_in: Accedi
+auth.register: Crea account
+auth.email: Email
+auth.password: Password
+auth.no_account: Non hai un account?
+auth.already_account: Hai già un account?
+
+# Status
+status.draft: Bozza
+status.sent: Inviato
+status.accepted: Accettato
+status.refused: Rifiutato
