@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Clients{% endblock %}
+{% block title %}{{ 'client.title'|trans }}{% endblock %}
 
 {% block body %}
     <div class="page-header">
-        <h1 class="page-title">Clients</h1>
-        <a href="{{ path('app_client_new') }}" class="btn-primary">New Client</a>
+        <h1 class="page-title">{{ 'client.title'|trans }}</h1>
+        <a href="{{ path('app_client_new') }}" class="btn-primary">{{ 'client.new'|trans }}</a>
     </div>
 
     <div class="table-wrapper">
         <table class="w-full text-left">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="table-header">Name</th>
-                    <th class="table-header">Email</th>
-                    <th class="table-header">Phone</th>
-                    <th class="table-header">Actions</th>
+                    <th class="table-header">{{ 'client.name'|trans }}</th>
+                    <th class="table-header">{{ 'client.email'|trans }}</th>
+                    <th class="table-header">{{ 'client.phone'|trans }}</th>
+                    <th class="table-header">{{ 'common.actions'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,13 +25,13 @@
                     <td class="table-cell">{{ client.email }}</td>
                     <td class="table-cell">{{ client.phone }}</td>
                     <td class="table-cell flex gap-3">
-                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="link">View</a>
-                        <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="link">Edit</a>
+                        <a href="{{ path('app_client_show', {'id': client.id}) }}" class="link">{{ 'common.view'|trans }}</a>
+                        <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="link">{{ 'common.edit'|trans }}</a>
                     </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">No clients found</td>
+                    <td colspan="4" class="px-6 py-8 text-center text-gray-400 text-sm">{{ 'common.no_results'|trans }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

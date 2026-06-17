@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{{ 'auth.sign_in'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-sm mx-auto mt-16">
-        <h1 class="page-title text-center mb-8">Sign in</h1>
+        <h1 class="page-title text-center mb-8">{{ 'auth.sign_in'|trans }}</h1>
 
         <div class="card">
             {% if error %}
@@ -15,22 +15,22 @@
 
             <form method="post" class="space-y-4">
                 <div>
-                    <label for="inputEmail" class="form-label">Email</label>
+                    <label for="inputEmail" class="form-label">{{ 'auth.email'|trans }}</label>
                     <input type="email" value="{{ last_username }}" name="_username" id="inputEmail"
                         class="form-input" autocomplete="email" required autofocus>
                 </div>
                 <div>
-                    <label for="inputPassword" class="form-label">Password</label>
+                    <label for="inputPassword" class="form-label">{{ 'auth.password'|trans }}</label>
                     <input type="password" name="_password" id="inputPassword"
                         class="form-input" autocomplete="current-password" required>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <button type="submit" class="btn-primary w-full">Sign in</button>
+                <button type="submit" class="btn-primary w-full">{{ 'auth.sign_in'|trans }}</button>
             </form>
         </div>
 
         <p class="text-center text-sm text-gray-500 mt-4">
-            No account? <a href="{{ path('app_register') }}" class="text-gray-900 hover:underline">Register</a>
+            {{ 'auth.no_account'|trans }} <a href="{{ path('app_register') }}" class="text-gray-900 hover:underline">{{ 'auth.register'|trans }}</a>
         </p>
     </div>
 {% endblock %}

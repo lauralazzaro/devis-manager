@@ -17,18 +17,28 @@
                 <div class="flex items-center gap-8">
                     <span class="font-semibold text-gray-900 tracking-tight">Devis Manager</span>
                     <div class="flex gap-6">
-                        <a href="{{ path('app_dashboard') }}" class="link">Dashboard</a>
-                        <a href="{{ path('app_client_index') }}" class="link">Clients</a>
-                        <a href="{{ path('app_quote_index') }}" class="link">Quotes</a>
+                        <a href="{{ path('app_dashboard') }}" class="link">{{ 'nav.dashboard'|trans }}</a>
+                        <a href="{{ path('app_client_index') }}" class="link">{{ 'nav.clients'|trans }}</a>
+                        <a href="{{ path('app_quote_index') }}" class="link">{{ 'nav.quotes'|trans }}</a>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
                     {% if app.user %}
                         <span class="text-xs text-gray-400">{{ app.user.email }}</span>
-                        <a href="{{ path('app_logout') }}" class="link">Logout</a>
+                        <a href="{{ path('app_logout') }}" class="link">{{ 'nav.logout'|trans }}</a>
                     {% else %}
-                        <a href="{{ path('app_login') }}" class="link">Login</a>
+                        <a href="{{ path('app_login') }}" class="link">{{ 'nav.login'|trans }}</a>
                     {% endif %}
+
+                    {# Language switcher #}
+                    <div class="flex gap-2 ml-4">
+    <a href="{{ path('app_locale_switch', {'locale': 'en'}) }}" 
+       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'en' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">EN</a>
+    <a href="{{ path('app_locale_switch', {'locale': 'fr'}) }}" 
+       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'fr' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">FR</a>
+    <a href="{{ path('app_locale_switch', {'locale': 'it'}) }}" 
+       class="text-xs px-2 py-1 rounded {{ app.request.locale == 'it' ? 'bg-gray-900 text-white' : 'text-gray-400 hover:text-gray-900' }}">IT</a>
+</div>
                 </div>
             </div>
         </nav>

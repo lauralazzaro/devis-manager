@@ -1,25 +1,25 @@
 {{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
     <div>
-        {{ form_label(form.quoteNumber, 'Quote Number', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.quoteNumber, 'quote.number'|trans, {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.quoteNumber, {'attr': {'class': 'form-input'}}) }}
         {{ form_errors(form.quoteNumber) }}
     </div>
     <div>
-        {{ form_label(form.createdAt, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.createdAt, 'quote.date'|trans, {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.createdAt, {'attr': {'class': 'form-input'}}) }}
         {{ form_errors(form.createdAt) }}
     </div>
     <div>
-        {{ form_label(form.status, 'Status', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.status, 'quote.status'|trans, {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.status, {'attr': {'class': 'form-input'}}) }}
         {{ form_errors(form.status) }}
     </div>
     <div>
-        {{ form_label(form.client, 'Client', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_label(form.client, 'quote.client'|trans, {'label_attr': {'class': 'form-label'}}) }}
         {{ form_widget(form.client, {'attr': {'class': 'form-input'}}) }}
         {{ form_errors(form.client) }}
     </div>
     <button type="submit" class="btn-primary">
-        {{ button_label|default('Save') }}
+        {{ button_label|default('common.save'|trans) }}
     </button>
 {{ form_end(form) }}

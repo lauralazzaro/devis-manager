@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Client{% endblock %}
+{% block title %}{{ 'client.new'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-xl">
         <div class="page-header">
-            <h1 class="page-title">New Client</h1>
-            <a href="{{ path('app_client_index') }}" class="link">Back to list</a>
+            <h1 class="page-title">{{ 'client.new'|trans }}</h1>
+            <a href="{{ path('app_client_index') }}" class="link">{{ 'common.back'|trans }}</a>
         </div>
 
         <div class="card">

@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}{{ 'auth.register'|trans }}{% endblock %}
 
 {% block body %}
     <div class="max-w-sm mx-auto mt-16">
-        <h1 class="page-title text-center mb-8">Create account</h1>
+        <h1 class="page-title text-center mb-8">{{ 'auth.register'|trans }}</h1>
 
         <div class="card">
             {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
                 <div>
-                    {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_label(registrationForm.email, 'auth.email'|trans, {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
                     {{ form_errors(registrationForm.email) }}
                 </div>
                 <div>
-                    {{ form_label(registrationForm.plainPassword, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_label(registrationForm.plainPassword, 'auth.password'|trans, {'label_attr': {'class': 'form-label'}}) }}
                     {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input'}}) }}
                     {{ form_errors(registrationForm.plainPassword) }}
                 </div>
-                <button type="submit" class="btn-primary w-full">Register</button>
+                <button type="submit" class="btn-primary w-full">{{ 'auth.register'|trans }}</button>
             {{ form_end(registrationForm) }}
         </div>
 
         <p class="text-center text-sm text-gray-500 mt-4">
-            Already have an account? <a href="{{ path('app_login') }}" class="text-gray-900 hover:underline">Sign in</a>
+            {{ 'auth.already_account'|trans }} <a href="{{ path('app_login') }}" class="text-gray-900 hover:underline">{{ 'auth.sign_in'|trans }}</a>
         </p>
     </div>
 {% endblock %}
