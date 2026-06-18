@@ -10,6 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use App\Enum\QuoteStatus;
+use App\Form\QuoteLineType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class QuoteType extends AbstractType
 {
@@ -25,15 +27,15 @@ class QuoteType extends AbstractType
             ])
             ->add('client', EntityType::class, [
                 'class' => Client::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
+            ])
+            ->add('quoteLines', CollectionType::class, [
+                'entry_type' => QuoteLineType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Quote::class,
-        ]);
     }
 }

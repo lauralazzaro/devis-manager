@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\QuoteLineRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 /**
  * Represents a single line item in a quote.
@@ -19,7 +20,7 @@ class QuoteLine
     private ?int $id = null;
 
     /** Description of the service or product */
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     /** Number of units (supports decimals, e.g. 2.5 hours) */
