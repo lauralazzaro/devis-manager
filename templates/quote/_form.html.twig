@@ -1,25 +1,178 @@
-{{ form_start(form, {'attr': {'class': 'space-y-4'}}) }}
-    <div>
-        {{ form_label(form.quoteNumber, 'quote.number'|trans, {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.quoteNumber, {'attr': {'class': 'form-input'}}) }}
-        {{ form_errors(form.quoteNumber) }}
+{{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            {{ form_label(form.quoteNumber, 'quote.number'|trans, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.quoteNumber, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.quoteNumber) }}
+        </div>
+        <div>
+            {{ form_label(form.createdAt, 'quote.date'|trans, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.createdAt, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.createdAt) }}
+        </div>
+        <div>
+            {{ form_label(form.status, 'quote.status'|trans, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.status, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.status) }}
+        </div>
+        <div>
+            {{ form_label(form.client, 'quote.client'|trans, {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.client, {'attr': {'class': 'form-input'}}) }}
+            {{ form_errors(form.client) }}
+        </div>
     </div>
+
+    {# Quote Lines #}
     <div>
-        {{ form_label(form.createdAt, 'quote.date'|trans, {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.createdAt, {'attr': {'class': 'form-input'}}) }}
-        {{ form_errors(form.createdAt) }}
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">{{ 'quote_line.description'|trans }}</h3>
+
+        <div id="quote-lines" 
+            data-prototype="{{ form_widget(form.quoteLines.vars.prototype)|e('html_attr') }}">
+            {% for line in form.quoteLines %}
+            <div class="quote-line card mb-3">
+                <div class="grid grid-cols-4 gap-3 items-end">
+                    <div class="col-span-2">
+                        {{ form_label(line.description, 'quote_line.description'|trans, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(line.description) }}
+                    </div>
+                    <div>
+                        {{ form_label(line.quantity, 'quote_line.quantity'|trans, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(line.quantity) }}
+                    </div>
+                    <div>
+                        {{ form_label(line.unitPrice, 'quote_line.unit_price'|trans, {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(line.unitPrice) }}
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                    <button type="button" class="btn-ai text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition">
+                        ✨ Generate AI description
+                    </button>
+                    <button type="button" class="btn-remove text-xs px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition">
+                        Remove
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+<div class="flex justify-end mt-4">
+    <div class="card px-6 py-3">
+        <span class="text-sm text-gray-500 uppercase tracking-widest">Total</span>
+        <span id="quote-total" class="text-2xl font-bold text-gray-900 ml-4">0.00 EUR</span>
     </div>
-    <div>
-        {{ form_label(form.status, 'quote.status'|trans, {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.status, {'attr': {'class': 'form-input'}}) }}
-        {{ form_errors(form.status) }}
+</div>
+        <button type="button" id="add-line" class="btn-secondary mt-3">
+            + Add line
+        </button>
     </div>
-    <div>
-        {{ form_label(form.client, 'quote.client'|trans, {'label_attr': {'class': 'form-label'}}) }}
-        {{ form_widget(form.client, {'attr': {'class': 'form-input'}}) }}
-        {{ form_errors(form.client) }}
-    </div>
+
     <button type="submit" class="btn-primary">
         {{ button_label|default('common.save'|trans) }}
     </button>
 {{ form_end(form) }}
+
+<script>
+document.addEventListener('turbo:load', function() {
+    const container = document.getElementById('quote-lines');
+    if (!container) return;
+
+    const addButton = document.getElementById('add-line');
+    let index = container.querySelectorAll('.quote-line').length;
+
+    function calculateTotal() {
+        let total = 0;
+        container.querySelectorAll('.quote-line').forEach(div => {
+            const qty = parseFloat(div.querySelector('input[id$="_quantity"]')?.value) || 0;
+            const price = parseFloat(div.querySelector('input[id$="_unitPrice"]')?.value) || 0;
+            const lineTotal = qty * price;
+            const lineTotalEl = div.querySelector('.line-total');
+            if (lineTotalEl) lineTotalEl.textContent = lineTotal.toFixed(2) + ' EUR';
+            total += lineTotal;
+        });
+        const totalEl = document.getElementById('quote-total');
+        if (totalEl) totalEl.textContent = total.toFixed(2) + ' EUR';
+    }
+
+    function bindEvents(div) {
+        div.querySelector('.btn-remove').addEventListener('click', () => {
+            div.remove();
+            calculateTotal();
+        });
+
+        div.querySelectorAll('input[id$="_quantity"], input[id$="_unitPrice"]').forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        div.querySelector('.btn-ai').addEventListener('click', async () => {
+            const descInput = div.querySelector('input[id$="_description"]');
+            const keyword = descInput.value;
+            if (!keyword) {
+                alert('Enter a keyword first');
+                return;
+            }
+            const btn = div.querySelector('.btn-ai');
+            btn.textContent = '⏳ Generating...';
+            btn.disabled = true;
+
+            const response = await fetch('/en/quote/ai/generate-description', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({keyword})
+            });
+
+            const data = await response.json();
+            descInput.value = data.description;
+            btn.textContent = '✨ Generate AI description';
+            btn.disabled = false;
+        });
+    }
+
+    function addLine() {
+        const prototype = container.dataset.prototype;
+        const newLine = prototype.replace(/__name__/g, index);
+        const div = document.createElement('div');
+        div.classList.add('quote-line', 'card', 'mb-3');
+
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(newLine, 'text/html');
+        const inputs = doc.querySelectorAll('input');
+
+        div.innerHTML = `
+            <div class="grid grid-cols-5 gap-3 items-end">
+                <div class="col-span-2">
+                    <label class="form-label">Description</label>
+                    <input type="text" name="${inputs[0].name}" id="${inputs[0].id}" class="form-input" placeholder="Description">
+                </div>
+                <div>
+                    <label class="form-label">Qty</label>
+                    <input type="number" name="${inputs[1].name}" id="${inputs[1].id}" class="form-input" placeholder="Qty" step="0.01">
+                </div>
+                <div>
+                    <label class="form-label">Unit Price</label>
+                    <input type="number" name="${inputs[2].name}" id="${inputs[2].id}" class="form-input" placeholder="Price" step="0.01">
+                </div>
+                <div>
+                    <label class="form-label">Total</label>
+                    <p class="line-total text-gray-900 font-medium py-2">0.00 EUR</p>
+                </div>
+            </div>
+            <div class="flex gap-2 mt-3">
+                <button type="button" class="btn-ai text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition">
+                    ✨ Generate AI description
+                </button>
+                <button type="button" class="btn-remove text-xs px-3 py-1 bg-red-50 text-red-600 rounded hover:bg-red-100 transition">
+                    Remove
+                </button>
+            </div>
+        `;
+        container.appendChild(div);
+        index++;
+        bindEvents(div);
+    }
+
+    addButton.addEventListener('click', addLine);
+    document.querySelectorAll('.quote-line').forEach(div => bindEvents(div));
+    calculateTotal();
+});
+</script>

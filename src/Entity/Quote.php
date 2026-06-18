@@ -46,7 +46,7 @@ class Quote
      * Orphan removal ensures lines are deleted when removed from the collection.
      * @var Collection<int, QuoteLine>
      */
-    #[ORM\OneToMany(targetEntity: QuoteLine::class, mappedBy: 'quote', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: QuoteLine::class, mappedBy: 'quote', orphanRemoval: true, cascade: ['persist'])]
     private Collection $quoteLines;
 
     public function __construct()
