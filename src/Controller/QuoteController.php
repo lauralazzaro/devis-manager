@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Service\PdfService;
+use App\Service\AiService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Controller for managing quotes (devis).
@@ -59,6 +61,24 @@ final class QuoteController extends AbstractController
     }
 
     /**
+     * Generates a professional description for a quote line using AI.
+     * Returns the generated text as JSON.
+     */
+    #[Route('/ai/generate-description', name: 'app_quote_ai_description', methods: ['POST'])]
+    public function generateDescription(Request $request, AiService $aiService): JsonResponse
+    {
+        $keyword = $request->getPayload()->getString('keyword');
+
+        if (empty($keyword)) {
+            return $this->json(['error' => 'Keyword is required'], 400);
+        }
+
+        $description = $aiService->generateQuoteLineDescription($keyword);
+
+        return $this->json(['description' => $description]);
+    }
+
+    /**
      * Generates and streams a PDF version of the quote.
      * Uses PdfService to build the PDF from quote data.
      * Returns the file as a downloadable attachment.
@@ -100,7 +120,7 @@ final class QuoteController extends AbstractController
     #[Route('/{id}', name: 'app_quote_delete', methods: ['POST'])]
     public function delete(Request $request, Quote $quote, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$quote->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $quote->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($quote);
             $entityManager->flush();
         }
